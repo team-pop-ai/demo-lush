@@ -1,0 +1,169 @@
+{
+  "subcontractors": [
+    {
+      "id": "ELEC001",
+      "name": "Voltage Masters Electric",
+      "specialties": ["Electrical"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "quotes@voltagemasters.com",
+      "phone": "(512) 555-0123",
+      "rating": 4.8,
+      "response_time_avg": "12 hours"
+    },
+    {
+      "id": "ELEC002", 
+      "name": "Austin Power Solutions",
+      "specialties": ["Electrical", "Smart Home/Security"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "bids@austinpower.com",
+      "phone": "(512) 555-0124",
+      "rating": 4.6,
+      "response_time_avg": "18 hours"
+    },
+    {
+      "id": "ELEC003",
+      "name": "Spark & Wire Co",
+      "specialties": ["Electrical", "Solar"],
+      "preferred": false,
+      "preferred_contact": "text",
+      "email": "info@sparkwire.com",
+      "phone": "(512) 555-0125",
+      "rating": 4.3,
+      "response_time_avg": "24 hours"
+    },
+    {
+      "id": "PLUMB001",
+      "name": "Flowing Waters Plumbing",
+      "specialties": ["Plumbing"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "estimates@flowingwaters.com",
+      "phone": "(512) 555-0201",
+      "rating": 4.9,
+      "response_time_avg": "8 hours"
+    },
+    {
+      "id": "PLUMB002",
+      "name": "Peterson Plumbing Services", 
+      "specialties": ["Plumbing", "Bathroom Fixtures"],
+      "preferred": true,
+      "preferred_contact": "text",
+      "email": "pete@petersonplumbing.com",
+      "phone": "(512) 555-0202",
+      "rating": 4.7,
+      "response_time_avg": "16 hours"
+    },
+    {
+      "id": "PLUMB003",
+      "name": "AquaTech Solutions",
+      "specialties": ["Plumbing", "Site Utilities"],
+      "preferred": false,
+      "preferred_contact": "email",
+      "email": "quotes@aquatech.com", 
+      "phone": "(512) 555-0203",
+      "rating": 4.4,
+      "response_time_avg": "20 hours"
+    },
+    {
+      "id": "HVAC001",
+      "name": "CoolAir Systems",
+      "specialties": ["HVAC"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "sales@coolair.com",
+      "phone": "(512) 555-0301",
+      "rating": 4.5,
+      "response_time_avg": "14 hours"
+    },
+    {
+      "id": "HVAC002",
+      "name": "Texas Climate Control",
+      "specialties": ["HVAC", "Insulation"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "bids@texasclimate.com",
+      "phone": "(512) 555-0302",
+      "rating": 4.8,
+      "response_time_avg": "10 hours"
+    },
+    {
+      "id": "HVAC003",
+      "name": "Comfort Zone HVAC",
+      "specialties": ["HVAC"],
+      "preferred": false,
+      "preferred_contact": "text",
+      "email": "info@comfortzone.com",
+      "phone": "(512) 555-0303",
+      "rating": 4.2,
+      "response_time_avg": "22 hours"
+    },
+    {
+      "id": "FOUND001",
+      "name": "SolidBuild Foundations",
+      "specialties": ["Foundation/Concrete"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "estimates@solidbuild.com",
+      "phone": "(512) 555-0401",
+      "rating": 4.9,
+      "response_time_avg": "6 hours"
+    },
+    {
+      "id": "FOUND002",
+      "name": "Rock Solid Concrete",
+      "specialties": ["Foundation/Concrete", "Site Utilities"],
+      "preferred": true,
+      "preferred_contact": "text",
+      "email": "quotes@rocksolid.com",
+      "phone": "(512) 555-0402",
+      "rating": 4.6,
+      "response_time_avg": "12 hours"
+    },
+    {
+      "id": "ROOF001",
+      "name": "Peak Performance Roofing",
+      "specialties": ["Roofing"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "bids@peakroofing.com",
+      "phone": "(512) 555-0501",
+      "rating": 4.7,
+      "response_time_avg": "15 hours"
+    },
+    {
+      "id": "ROOF002",
+      "name": "Austin Roof Works",
+      "specialties": ["Roofing", "Solar"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "estimates@austinroof.com",
+      "phone": "(512) 555-0502",
+      "rating": 4.5,
+      "response_time_avg": "18 hours"
+    },
+    {
+      "id": "FLOOR001",
+      "name": "Premium Flooring Solutions",
+      "specialties": ["Flooring"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "quotes@premiumflooring.com",
+      "phone": "(512) 555-0601",
+      "rating": 4.8,
+      "response_time_avg": "11 hours"
+    },
+    {
+      "id": "KITCHEN001",
+      "name": "Austin Kitchen Designs",
+      "specialties": ["Kitchen", "Bathroom Fixtures"],
+      "preferred": true,
+      "preferred_contact": "email",
+      "email": "sales@austinkitchens.com",
+      "phone": "(512) 555-0701",
+      "rating": 4.9,
+      "response_time_avg": "8 hours"
+    }
+  ]
+}

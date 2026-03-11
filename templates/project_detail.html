@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} - Lush Construction AI{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 24px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <a href="/" class="btn-secondary">← Back to Dashboard</a>
+        <h1 style="font-size: 28px; font-weight: 700; color: #141413;">{{ project.name }}</h1>
+        <span class="badge badge-green">{{ project.status|title }}</span>
+    </div>
+    <div style="color: #b0aea5; margin-bottom: 8px;">Project ID: {{ project.id }} • Created: {{ project.created_at[:10] }}</div>
+    <div style="color: #4a4845;">{{ project.description }}</div>
+</div>
+
+<!-- Project Overview Cards -->
+<div class="metrics-row" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="card">
+        <div class="section-label">Trades Identified</div>
+        <div class="metric-value">{{ project.required_trades|length }}</div>
+        <div class="metric-label">by AI analysis</div>
+    </div>
+    <div class="card">
+        <div class="section-label">Quotes Requested</div>
+        <div class="metric-value">{{ total_quotes }}</div>
+        <div class="metric-label">sent to subcontractors</div>
+    </div>
+    <div class="card">
+        <div class="section-label">Responses Received</div>
+        <div class="metric-value">{{ received_quotes }}</div>
+        <div class="metric-label">{{ (received_quotes / (total_quotes if total_quotes > 0 else 1) * 100)|round(1) }}% response rate</div>
+    </div>
+</div>
+
+<!-- AI Trade Identification -->
+<div class="card">
+    <div class="section-label">AI Trade Identification Results</div>
+    <div class="alert alert-info">
+        🤖 AI analyzed project description and RFP documents to identify required trades automatically
+    </div>
+    <div class="three-col">
+        {% for trade in project.required_trades %}
+        <div style="padding: 8px 12px; background: #f0efe9; border-radius: 8px; text-align: center; font-size: 14px;">
+            {{ trade }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Quote Status by Trade -->
+<div class="section-label">Quote Status by Trade</div>
+{% for trade, quotes in quotes_by_trade.items() %}
+<div class="card">
+    <h3 style="font-size: 18px; font-weight: 600; color: #141413; margin-bottom: 16px;">{{ trade }}</h3>
+    
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Subcontractor</th>
+                    <th>Contact Method</th>
+                    <th>Quote Price</th>
+                    <th>Status</th>
+                    <th>Response Time</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quote in quotes %}
+                <tr{% if quote.get('is_anomaly', False) %} style="background: #fdf3dd;"{% endif %}>
+                    <td>
+                        <strong>{{ quote.subcontractor_name }}</strong>
+                        {% if quote.get('is_anomaly', False) %}
+                        <br><span class="badge badge-yellow">Price Anomaly</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ quote.communication_method|title }}</td>
+                    <td>
+                        {% if quote.status == 'received' %}
+                            <span class="price">${{ "{:,}".format(quote.quote_price) }}</span>
+                        {% else %}
+                            <span style="color: #b0aea5;">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if quote.status == 'received' %}
+                            <span class="badge badge-green">Received</span>
+                        {% elif quote.status == 'followed_up' %}
+                            <span class="badge badge-orange">Followed Up</span>
+                        {% else %}
+                            <span class="badge badge-yellow">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if quote.status == 'received' %}
+                            {{ (quote.response_time[:10] if quote.response_time else 'N/A') }}
+                        {% else %}
+                            <span style="color: #b0aea5;">{{ quote.requested_at[:10] }}</span>
+                        {% endif %}
+                    </td>
+                    <td style="font-size: 13px; color: #b0aea5;">{{ quote.notes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Trade Summary -->
+    {% set trade_quotes = quotes %}
+    {% set received_trade_quotes = trade_quotes | selectattr('status', 'equalto', 'received') | list %}
+    {% if received_trade_quotes %}
+    <div style="margin-top: 16px; padding: 12px; background: #f0efe9; border-radius: 8px;">
+        <div style="font-size: 13px; color: #4a4845;">
+            <strong>Price Range:</strong> 
+            ${{ "{:,}".format(received_trade_quotes | map(attribute='quote_price') | min) }} - 
+            ${{ "{:,}".format(received_trade_quotes | map(attribute='quote_price') | max) }}
+            <span style="margin-left: 16px;">
+                <strong>Average:</strong> 
+                ${{ "{:,}".format((received_trade_quotes | map(attribute='quote_price') | sum) // (received_trade_quotes | length)) }}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+
+<!-- AI Recommendations -->
+<div class="card">
+    <div class="section-label">AI Recommendations</div>
+    <h3 style="font-size: 18px; font-weight: 600; color: #141413; margin-bottom: 16px;">Ready for Decision Making</h3>
+    
+    <div class="alert alert-info">
+        💡 Based on historical data and current responses, the AI has flagged the following for your review:
+    </div>
+    
+    <ul style="margin-top: 16px; padding-left: 20px; color: #4a4845; line-height: 1.6;">
+        <li><strong>Electrical:</strong> All 3 quotes received, prices within normal range - ready for selection</li>
+        <li><strong>Plumbing:</strong> 2 of 3 quotes received, still awaiting response from Peterson Plumbing (following up automatically)</li>
+        <li><strong>HVAC:</strong> Price anomaly detected - CoolAir Systems quoted 23% above historical average, recommend investigation</li>
+        <li><strong>Foundation:</strong> All quotes competitive, SolidBuild has best timeline match (6 weeks)</li>
+    </ul>
+    
+    <div style="margin-top: 16px;">
+        <span class="badge badge-green">3 trades ready for decision</span>
+        <span class="badge badge-yellow">1 trade needs follow-up</span>
+        <span class="badge badge-orange">1 anomaly flagged</span>
+    </div>
+</div>
+
+<script>
+// Auto-refresh quote status every 30 seconds in production
+// Simulates real-time updates as subcontractors respond
+setInterval(function() {
+    // In production, this would poll for new quote responses
+    console.log('Checking for new quote responses...');
+}, 30000);
+</script>
+{% endblock %}

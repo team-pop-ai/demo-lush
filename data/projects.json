@@ -1,0 +1,59 @@
+{
+  "projects": [
+    {
+      "id": "LUSH-20241216-847",
+      "name": "Riverside Modular Village",
+      "description": "Premium modular community featuring 8 energy-efficient homes with smart technology integration. Each unit includes 3BR/2BA layout with open-concept design.",
+      "rfp_details": "SCOPE: Complete construction package for 8 modular units. ELECTRICAL: Smart home pre-wiring, Tesla charging prep, LED throughout. PLUMBING: Tankless systems, luxury fixtures. HVAC: Geothermal heat pumps with zoned control. Timeline: 10 weeks.",
+      "status": "active",
+      "created_at": "2024-12-10T08:30:00",
+      "required_trades": ["Electrical", "Plumbing", "HVAC", "Foundation/Concrete", "Roofing", "Smart Home/Security", "Solar"],
+      "estimated_timeline": "10-12 weeks",
+      "project_manager": "RJ Lange"
+    },
+    {
+      "id": "LUSH-20241215-523",
+      "name": "Cedar Creek Eco Homes",
+      "description": "Sustainable 3D-printed home construction project with 6 single-family units featuring renewable energy systems and water conservation technology.",
+      "rfp_details": "SCOPE: Eco-friendly construction for 6 units. ELECTRICAL: Solar-ready wiring, battery backup systems. PLUMBING: Greywater recycling, low-flow fixtures. HVAC: High-efficiency heat pumps. SPECIAL: Rainwater collection integration.",
+      "status": "active",
+      "created_at": "2024-12-08T14:15:00",
+      "required_trades": ["Electrical", "Plumbing", "HVAC", "Solar", "Site Utilities", "Insulation"],
+      "estimated_timeline": "8-10 weeks",
+      "project_manager": "RJ Lange"
+    },
+    {
+      "id": "LUSH-20241214-291",
+      "name": "Austin Metro Starter Homes",
+      "description": "Affordable modular housing development with 15 compact units designed for first-time homebuyers. Focus on cost-efficiency while maintaining quality standards.",
+      "rfp_details": "SCOPE: Value-engineered construction for 15 units. ELECTRICAL: Standard residential service, energy-efficient lighting. PLUMBING: Cost-effective fixtures, standard layouts. HVAC: Builder-grade heat pumps. Timeline: 6 weeks.",
+      "status": "active",
+      "created_at": "2024-12-05T11:45:00",
+      "required_trades": ["Electrical", "Plumbing", "HVAC", "Foundation/Concrete", "Roofing", "Flooring", "Painting"],
+      "estimated_timeline": "6-8 weeks",
+      "project_manager": "RJ Lange"
+    },
+    {
+      "id": "LUSH-20241213-456",
+      "name": "Hill Country Luxury Resort",
+      "description": "High-end vacation rental development featuring 4 luxury modular cabins with premium finishes and resort-style amenities.",
+      "rfp_details": "SCOPE: Luxury finishes for 4 resort cabins. ELECTRICAL: Landscape lighting, hot tub electrical. PLUMBING: Spa-grade fixtures, outdoor showers. HVAC: Dual-zone systems. SPECIAL: Outdoor kitchen packages, fire pit installations.",
+      "status": "active",
+      "created_at": "2024-12-03T16:20:00",
+      "required_trades": ["Electrical", "Plumbing", "HVAC", "Kitchen", "Bathroom Fixtures", "Landscaping", "Outdoor Features"],
+      "estimated_timeline": "12-14 weeks",
+      "project_manager": "RJ Lange"
+    },
+    {
+      "id": "LUSH-20241212-789",
+      "name": "Downtown Infill Development",
+      "description": "Urban modular development with 10 townhome-style units designed for downtown Austin living with modern amenities and parking solutions.",
+      "rfp_details": "SCOPE: Urban townhomes with garage access. ELECTRICAL: EV charging, security systems. PLUMBING: Compact efficient layouts. HVAC: Ductless mini-splits. SPECIAL: Rooftop deck installations, urban landscaping.",
+      "status": "active",
+      "created_at": "2024-12-01T09:10:00",
+      "required_trades": ["Electrical", "Plumbing", "HVAC", "Smart Home/Security", "Roofing", "Garage Doors", "Landscaping"],
+      "estimated_timeline": "10-12 weeks",
+      "project_manager": "RJ Lange"
+    }
+  ]
+}

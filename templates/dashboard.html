@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+    <div>
+        <h1 style="font-size: 28px; font-weight: 700; color: #141413; margin-bottom: 8px;">Quote Management Dashboard</h1>
+        <p style="color: #b0aea5;">Automated quote workflow for Lush Construction projects</p>
+    </div>
+    <button onclick="showNewProjectModal()" class="btn-primary">+ New Teams Project</button>
+</div>
+
+<!-- Metrics Overview -->
+<div class="metrics-row">
+    <div class="card">
+        <div class="section-label">Active Projects</div>
+        <div class="metric-value">{{ total_projects }}</div>
+        <div class="metric-label">currently managed</div>
+    </div>
+    <div class="card">
+        <div class="section-label">Quotes Sent</div>
+        <div class="metric-value">{{ total_quotes_sent }}</div>
+        <div class="metric-label">this month</div>
+    </div>
+    <div class="card">
+        <div class="section-label">Response Rate</div>
+        <div class="metric-value">{{ response_rate }}</div>
+        <div class="metric-label">avg response time: 18h</div>
+    </div>
+    <div class="card">
+        <div class="section-label">Anomalies Flagged</div>
+        <div class="metric-value">{{ anomalies_flagged }}</div>
+        <div class="metric-label">require review</div>
+    </div>
+</div>
+
+<!-- Teams Integration Simulator -->
+<div class="card-subtle">
+    <div class="section-label">Teams Integration Status</div>
+    <div class="alert alert-info">
+        🔗 Connected to Lush Construction Teams workspace • Monitoring for new projects and RFP uploads
+    </div>
+    <p style="margin-bottom: 16px;">The AI monitors your Teams channels for new project creation and automatically processes RFP documents to identify required trades.</p>
+    <div style="display: flex; gap: 12px;">
+        <span class="badge badge-green">SharePoint Connected</span>
+        <span class="badge badge-green">Project Creation Monitor Active</span>
+        <span class="badge badge-green">Document Parser Ready</span>
+    </div>
+</div>
+
+<!-- Recent Projects -->
+<div class="section-label">Recent Projects</div>
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Created</th>
+                <th>Trades Identified</th>
+                <th>Quotes Sent</th>
+                <th>Responses</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>
+                    <strong>{{ project.name }}</strong><br>
+                    <small style="color: #b0aea5;">{{ project.id }}</small>
+                </td>
+                <td>{{ project.created_at[:10] }}</td>
+                <td>{{ project.required_trades|length }} trades</td>
+                <td>{{ project.required_trades|length * 3 }} sent</td>
+                <td>
+                    {% set responses = 0 %}
+                    {% for quote in recent_quotes %}
+                        {% if quote.project_id == project.id and quote.status == 'received' %}
+                            {% set responses = responses + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {{ responses }} received
+                </td>
+                <td><span class="badge badge-green">Active</span></td>
+                <td><a href="/project/{{ project.id }}" class="btn-secondary">View Details</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Recent Quote Activity -->
+<div class="two-col" style="margin-top: 32px;">
+    <div>
+        <div class="section-label">Recent AI Activity</div>
+        <div class="card">
+            {% for quote in recent_quotes[:5] %}
+            <div style="border-bottom: 1px solid #f0efe9; padding-bottom: 12px; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>{{ quote.trade }}</strong> quote from {{ quote.subcontractor_name }}
+                        <br><small style="color: #b0aea5;">{{ quote.project_id }}</small>
+                    </div>
+                    <div style="text-align: right;">
+                        {% if quote.status == 'received' %}
+                            <span class="badge badge-green">Received</span>
+                            <div class="price">${{ "{:,}".format(quote.quote_price) }}</div>
+                        {% elif quote.status == 'pending' %}
+                            <span class="badge badge-yellow">Pending</span>
+                        {% else %}
+                            <span class="badge badge-orange">Following Up</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div>
+        <div class="section-label">AI Automation Timeline</div>
+        <div class="card">
+            <div style="margin-bottom: 16px;">
+                <strong>⏱️ Last 24 Hours</strong>
+                <ul style="margin-top: 8px; padding-left: 20px; color: #4a4845;">
+                    <li>Processed 3 new Teams projects</li>
+                    <li>Identified 47 required trades automatically</li>
+                    <li>Sent 141 quote requests via email/SMS</li>
+                    <li>Received 23 responses, logged in system</li>
+                    <li>Flagged 2 price anomalies for review</li>
+                </ul>
+            </div>
+            <div class="alert alert-warning">
+                ⚠️ 12 quotes pending follow-up (3+ days old)
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Project Modal (Hidden by default) -->
+<div id="newProjectModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: #ffffff; border-radius: 12px; width: 90%; max-width: 600px; padding: 32px;">
+        <h2 style="font-size: 24px; font-weight: 600; color: #141413; margin-bottom: 16px;">Simulate Teams Project Creation</h2>
+        <p style="color: #b0aea5; margin-bottom: 24px;">In production, this happens automatically when a new project is created in Teams with RFP documents.</p>
+        
+        <form method="post" action="/create-project">
+            <label class="field-label">Project Name</label>
+            <input type="text" name="project_name" value="Oakwood Modular Community - Phase 2" required>
+            
+            <label class="field-label">Project Description</label>
+            <textarea name="project_description" rows="3" required>3D-printed modular home construction project featuring 12 single-family units with modern amenities. Each unit is 1,200 sq ft with 2BR/2BA, open floor plan, and energy-efficient systems. Located in suburban Austin development.</textarea>
+            
+            <label class="field-label">RFP Details</label>
+            <textarea name="rfp_details" rows="4" required>SCOPE: Complete electrical, plumbing, HVAC, and finishing work for 12 modular units. ELECTRICAL: 200-amp panels, LED lighting throughout, smart home pre-wiring. PLUMBING: PEX supply lines, tankless water heaters, modern fixtures. HVAC: High-efficiency heat pumps, ductwork, programmable thermostats. FINISHES: Luxury vinyl flooring, quartz countertops, stainless appliances. Timeline: 8 weeks from foundation completion. All work must meet Texas building codes and energy efficiency standards.</textarea>
+            
+            <div style="display: flex; gap: 12px; margin-top: 24px;">
+                <button type="submit" class="btn-primary">Create Project & Auto-Generate Quotes</button>
+                <button type="button" onclick="hideNewProjectModal()" class="btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function showNewProjectModal() {
+    document.getElementById('newProjectModal').style.display = 'flex';
+}
+
+function hideNewProjectModal() {
+    document.getElementById('newProjectModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+document.getElementById('newProjectModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        hideNewProjectModal();
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,9 @@
+{
+  "historical_quotes": [
+    {"trade": "Electrical", "price": 12000, "date": "2024-11-15", "project_type": "modular_residential"},
+    {"trade": "Electrical", "price": 14500, "date": "2024-11-10", "project_type": "modular_residential"},
+    {"trade": "Electrical", "price": 11800, "date": "2024-11-05", "project_type": "modular_residential"},
+    {"trade": "Electrical", "price": 13200, "date": "2024-10-28", "project_type": "modular_residential"},
+    {"trade": "Electrical", "price": 15600, "date": "2024-10-20", "project_type": "luxury_modular"},
+    {"trade": "Plumbing", "price": 9500, "date": "2024-11-12", "project_type": "modular_residential"},
+    {"trade": "Plumbing", "price": 8800, "date": "2024-11-
